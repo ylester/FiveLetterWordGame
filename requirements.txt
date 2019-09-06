@@ -1,0 +1,10 @@
+numpy >= 1.9.1
+scipy
+pandas
+matplotlib
+scikit-learn
+plotly
+requests >= 2.0.0,< 3.0.0
+six >= 1.9.0
+setuptools >= 36
+random
