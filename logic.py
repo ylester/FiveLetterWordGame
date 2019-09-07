@@ -1,17 +1,6 @@
 import random
 DATA_STORE = {}
 
-
-def create_word_bank():
-    f=open("words.txt", "r")
-    f2 = open("valid_words.txt","w")
-    for word in f:
-        word = word.split()[0]
-        if len(set(word)) == 5:
-            f2.write(word + "\n")
-    f2.close()
-
-
 def pick_word():
     word_bank = open("valid_words.txt").readlines()
     return random.choice(word_bank).split()[0]
@@ -43,13 +32,10 @@ def counter(count):
     count -= 1
     if count == 3:
         print("3 Guesses Remaining \n")
-        return count
     if count == 2:
         print("2 Guesses Remaining \n")
-        return count
     if count == 1:
         print("1 Guess Remaining \n")
-        return count
     return count
 
 
@@ -57,21 +43,37 @@ def store_data(guess_data):
     key = guess_data[0]
     value = guess_data[1]
     DATA_STORE[key] = value
-    print(DATA_STORE)
+    for val in DATA_STORE:
+        print(val, DATA_STORE[val])
     print()
 
 
 def final_guess(word):
     final = input('Final Guess, What is the word?: \n')
     if final.lower() == word:
-        print("Congrats!!! You Won!!")
+        print("\nCongrats!!! You Won!!\n", "The Word Was -> {}".format(word))
     else:
-        print("Sorry! Game Over! You Lose.")
+        print("\nSorry! Game Over! You Lose.\n","The Word Was -> {}".format(word))
+
+
+def select_level():
+    print("Select your difficulty level:\n")
+    level = input(" 1: Easy\n 2: Intermediate\n 3: Hard\n")
+    if level == '1':
+        return 16
+    elif level == '2':
+        return 12
+    elif level == '3':
+        return 8
+    else:
+        print("That is an invalid choice\nYou are set to Intermediate as Default\n\n")
+        return 12
 
 
 def main():
+    print("\nWelcome to the Five Letter Word Game!\n")
     word = pick_word()
-    count = 8
+    count = select_level()
     while count != 0:
         guess = input('Guess a 5 letter word: \n')
         input_answer = guessed(guess, word)
